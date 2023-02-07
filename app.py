@@ -1,7 +1,12 @@
 from langchain.llms import OpenAI
 
+from langchain.prompts import PromptTemplate
+
+prompt = PromptTemplate(
+    input_variables=["product"],
+    template="What is a good name for a company that makes {product}?",
+)
+
 llm = OpenAI(temperature=0.9)
 
-text = "What would be a good company name a company that makes colorful socks?"
-
-print(llm(text))
+print(llm(prompt.format(product="colorful socks")))
