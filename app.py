@@ -1,16 +1,15 @@
+import sys
 from langchain.llms import OpenAI
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain.document_loaders import UnstructuredPDFLoader
+from langchain.chains.summarize import load_summarize_chain
 
+# Load the document
+loader = UnstructuredPDFLoader(str(sys.argv[1]))
+data = loader.load()
 
-llm = OpenAI(temperature=0.9)
-prompt = PromptTemplate(
-    input_variables=["product"],
-    template="What is a good name for a company that makes {product}?",
-)
+llm = OpenAI(temperature=0)
+chain = load_summarize_chain(llm, chain_type="stuff")  # "refine" or "map_reduce"
 
-chain = LLMChain(llm=llm, prompt=prompt)
-
-result = chain.run("coloring book")
+result = chain.run(data)
 
 print(result)
