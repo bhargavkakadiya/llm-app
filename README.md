@@ -6,6 +6,11 @@
 ### Generate PDF Summary
 
 ```
-python app.py data/DE_EA.pdf
+python app_pdf.py data/DE_EA.pdf
 ```
 
+### Chat with AI having webpage knowledge
+
+```
+python app_html.py
+```
